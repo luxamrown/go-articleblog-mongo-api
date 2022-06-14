@@ -26,7 +26,7 @@ func (a *appServer) v1() {
 
 func (a *appServer) Run() {
 	a.initHandlers()
-	err := a.routerEngine.Run(":" + ":8080")
+	err := a.routerEngine.Run(":" + ":3000")
 	if err != nil {
 		panic(err)
 	}
