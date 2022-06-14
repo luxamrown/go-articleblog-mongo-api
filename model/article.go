@@ -10,3 +10,10 @@ type Article struct {
 	ArticleId string             `bson:"article_id,ompitempty"`
 	Date      string             `bson:"date,omitempty"`
 }
+
+type ArticleHead struct {
+	Title     string `bson:"title,omitempty"`
+	Author    string `bson:"author,omitempty"`
+	ArticleId string `bson:"article_id,ompitempty"`
+	Date      string `bson:"date,omitempty"`
+}

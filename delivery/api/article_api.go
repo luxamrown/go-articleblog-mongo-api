@@ -12,6 +12,7 @@ import (
 
 type ArticleApi struct {
 	createArticleUseCase usecase.CreateArticleUseCase
+	getAllArticleUseCase usecase.GetAllArticleUseCase
 	getArticleUseCase    usecase.GetArticleUseCase
 }
 
@@ -37,6 +38,21 @@ func (a *ArticleApi) CreateArticle() gin.HandlerFunc {
 	}
 }
 
+func (a *ArticleApi) GetAllArticle() gin.HandlerFunc {
+	return func(c *gin.Context) {
+		// var article []model.ArticleHead
+
+		articles, err := a.getAllArticleUseCase.GetAllArticle()
+		if err != nil {
+			c.JSON(http.StatusBadRequest, gin.H{"Error": err})
+			return
+		}
+
+		c.JSON(http.StatusOK, gin.H{"status": "Success", "Data": articles})
+
+	}
+}
+
 func (a *ArticleApi) GetArticle() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		var articleId appreq.ArticleRequest
@@ -57,11 +73,13 @@ func (a *ArticleApi) GetArticle() gin.HandlerFunc {
 	}
 }
 
-func NewArticleApi(articleRoute *gin.RouterGroup, getArticleUseCase usecase.GetArticleUseCase, createArticleUseCase usecase.CreateArticleUseCase) {
+func NewArticleApi(articleRoute *gin.RouterGroup, createArticleUseCase usecase.CreateArticleUseCase, getAllArticleUseCase usecase.GetAllArticleUseCase, getArticleUseCase usecase.GetArticleUseCase) {
 	api := ArticleApi{
-		getArticleUseCase:    getArticleUseCase,
 		createArticleUseCase: createArticleUseCase,
+		getAllArticleUseCase: getAllArticleUseCase,
+		getArticleUseCase:    getArticleUseCase,
 	}
 	articleRoute.GET("/", api.GetArticle())
 	articleRoute.POST("/post", api.CreateArticle())
+	articleRoute.GET("/all", api.GetAllArticle())
 }

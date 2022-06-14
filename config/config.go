@@ -22,7 +22,7 @@ type Config struct {
 	DbConfig
 }
 
-func (c Config) ReadConfigFile() Config {
+func (c Config) SetConfig() Config {
 	c.ApiConfig = ApiConfig{Url: "localhost:6666"}
 	c.DbConfig = DbConfig{
 		Uri: "mongodb+srv://luxamrown:%40Bulungan2018@blog.yzqxr.mongodb.net/?retryWrites=true&w=majority",
@@ -32,7 +32,7 @@ func (c Config) ReadConfigFile() Config {
 
 func NewConfig() Config {
 	cfg := Config{}
-	cfg = cfg.ReadConfigFile()
+	cfg = cfg.SetConfig()
 
 	dataSourceName := cfg.DbConfig.Uri
 	cfg.InfraManager = manager.NewInfra(dataSourceName)

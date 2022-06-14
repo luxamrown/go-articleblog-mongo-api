@@ -21,7 +21,7 @@ func (a *appServer) initHandlers() {
 
 func (a *appServer) v1() {
 	articleApiGroup := a.routerEngine.Group("/article")
-	api.NewArticleApi(articleApiGroup, a.cfg.UseCaseManager.GetArticleUseCase(), a.cfg.UseCaseManager.CreateArticleUseCase())
+	api.NewArticleApi(articleApiGroup, a.cfg.UseCaseManager.CreateArticleUseCase(), a.cfg.UseCaseManager.GetAllArticlUseCase(), a.cfg.UseCaseManager.GetArticleUseCase())
 }
 
 func (a *appServer) Run() {
