@@ -10,6 +10,7 @@ import (
 
 type ArticleRepo interface {
 	GetArticle(id string) (model.Article, error)
+	CreateArticle(title, desc, author, date, article_id string) error
 }
 
 type articleRepoImpl struct {
@@ -26,6 +27,18 @@ func (a *articleRepoImpl) GetArticle(id string) (model.Article, error) {
 	}
 
 	return selectedArticle, nil
+}
+
+func (a *articleRepoImpl) CreateArticle(title, desc, author, date, article_id string) error {
+	coll := a.articleDb.Database("mohamadelabror-blog").Collection("Blog")
+	doc := bson.M{"title": title, "desc": desc, "author": author, "date": date, "article_id": article_id}
+
+	_, err := coll.InsertOne(context.TODO(), doc)
+	if err != nil {
+		return err
+	}
+	return nil
+
 }
 
 func NewArticleRepo(articleDb *mongo.Client) ArticleRepo {
