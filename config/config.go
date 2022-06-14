@@ -25,7 +25,7 @@ type Config struct {
 func (c Config) SetConfig() Config {
 	c.ApiConfig = ApiConfig{Url: "localhost:6666"}
 	c.DbConfig = DbConfig{
-		Uri: "mongodb+srv://luxamrown:%40Bulungan2018@blog.yzqxr.mongodb.net/?retryWrites=true&w=majority",
+		Uri: "mongodb+srv://<username>:<password>@<host>:<port>/?retryWrites=true&w=majority",
 	}
 	return c
 }
