@@ -26,7 +26,7 @@ func (a *appServer) v1() {
 
 func (a *appServer) Run() {
 	a.initHandlers()
-	err := a.routerEngine.Run(a.cfg.ApiConfig.Url)
+	err := a.routerEngine.Run(":" + ":8080")
 	if err != nil {
 		panic(err)
 	}
