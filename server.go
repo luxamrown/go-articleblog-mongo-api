@@ -1,6 +1,8 @@
 package main
 
 import (
+	"os"
+
 	"github.com/gin-gonic/gin"
 	"mohamadelabror.me/goapiblog/config"
 	"mohamadelabror.me/goapiblog/delivery/api"
@@ -25,8 +27,9 @@ func (a *appServer) v1() {
 }
 
 func (a *appServer) Run() {
+	port := os.Getenv("PORT")
 	a.initHandlers()
-	err := a.routerEngine.Run(":" + "3000")
+	err := a.routerEngine.Run(":" + port)
 	if err != nil {
 		panic(err)
 	}
