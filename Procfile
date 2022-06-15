@@ -1,1 +1,1 @@
-web: go-cms-api
+web: bin/goapiblog
