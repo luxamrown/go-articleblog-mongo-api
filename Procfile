@@ -1,1 +1,1 @@
-web: bin/go-cms-api
+web: go run .
