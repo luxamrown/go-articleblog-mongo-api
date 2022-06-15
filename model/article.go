@@ -13,6 +13,7 @@ type Article struct {
 
 type ArticleHead struct {
 	Title     string `bson:"title,omitempty"`
+	Desc      string `bson:"desc,omitempty"`
 	Author    string `bson:"author,omitempty"`
 	ArticleId string `bson:"article_id,ompitempty"`
 	Date      string `bson:"date,omitempty"`
