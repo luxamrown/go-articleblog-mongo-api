@@ -1,6 +1,10 @@
 package config
 
-import "mohamadelabror.me/goapiblog/manager"
+import (
+	"fmt"
+
+	"mohamadelabror.me/goapiblog/manager"
+)
 
 type ApiConfig struct {
 	Url string
@@ -23,11 +27,12 @@ type Config struct {
 }
 
 func (c Config) SetConfig() Config {
-	const urlApi = ":6666"
-	c.ApiConfig = ApiConfig{Url: urlApi}
+	urlApi := "3000"
+	c.ApiConfig = ApiConfig{Url: ":" + urlApi}
 	c.DbConfig = DbConfig{
 		Uri: "mongodb+srv://luxamrown:%40Bulungan2018@blog.yzqxr.mongodb.net/?retryWrites=true&w=majority",
 	}
+	fmt.Println(c.ApiConfig)
 	return c
 }
 
