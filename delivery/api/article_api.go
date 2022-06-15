@@ -55,14 +55,9 @@ func (a *ArticleApi) GetAllArticle() gin.HandlerFunc {
 
 func (a *ArticleApi) GetArticle() gin.HandlerFunc {
 	return func(c *gin.Context) {
-		var articleId appreq.ArticleRequest
-		err := c.ShouldBindJSON(&articleId)
-		if err != nil {
-			c.JSON(http.StatusBadRequest, gin.H{"ERROR": "CANNOT BIND JSON"})
-			return
-		}
 
-		selectedArticle, err := a.getArticleUseCase.GetArticle(articleId.ArticleId)
+		articleId := c.Param("id")
+		selectedArticle, err := a.getArticleUseCase.GetArticle(articleId)
 		if err != nil {
 			c.JSON(http.StatusBadRequest, gin.H{"ERROR": err})
 			return
@@ -79,7 +74,7 @@ func NewArticleApi(articleRoute *gin.RouterGroup, createArticleUseCase usecase.C
 		getAllArticleUseCase: getAllArticleUseCase,
 		getArticleUseCase:    getArticleUseCase,
 	}
-	articleRoute.GET("/", api.GetArticle())
+	articleRoute.GET("/:id", api.GetArticle())
 	articleRoute.POST("/post", api.CreateArticle())
 	articleRoute.GET("/all", api.GetAllArticle())
 }
