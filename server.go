@@ -1,6 +1,7 @@
 package main
 
 import (
+	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 	"mohamadelabror.me/goapiblog/config"
 	"mohamadelabror.me/goapiblog/delivery/api"
@@ -34,6 +35,7 @@ func (a *appServer) Run() {
 
 func Server() AppServer {
 	r := gin.Default()
+	r.Use(cors.Default())
 	c := config.NewConfig()
 	return &appServer{
 		routerEngine: r,
