@@ -65,10 +65,16 @@ func (a *articleRepoImpl) CreateArticle(title, desc, author, date, article_id st
 }
 
 func (a *articleRepoImpl) DeleteArticle(id string) error {
+	var result bson.M
 	coll := a.articleDb.Database("mohamadelabror-blog").Collection("Blog")
-	filter := bson.M{"article_id": id}
-
-	_, err := coll.DeleteOne(context.TODO(), filter)
+	err := coll.FindOne(context.TODO(), bson.M{"article_id": id}).Decode(&result)
+	if err != nil {
+		if err == mongo.ErrNoDocuments {
+			return err
+		}
+		return err
+	}
+	_, err = coll.DeleteOne(context.TODO(), result)
 	if err != nil {
 		return err
 	}
