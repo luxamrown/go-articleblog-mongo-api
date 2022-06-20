@@ -40,7 +40,7 @@ func GetPort() string {
 func (c Config) SetConfig() Config {
 	c.ApiConfig = ApiConfig{Url: GetPort()}
 	c.DbConfig = DbConfig{
-		Uri: "mongodb+srv://luxamrown:%40Bulungan2018@blog.yzqxr.mongodb.net/?retryWrites=true&w=majority",
+		Uri: "mongodb+srv://<username>:<password>@<host>:<port>/?retryWrites=true&w=majority",
 	}
 	fmt.Println(c.ApiConfig)
 	return c
