@@ -6,6 +6,7 @@ type UseCaseManager interface {
 	CreateArticleUseCase() usecase.CreateArticleUseCase
 	GetAllArticlUseCase() usecase.GetAllArticleUseCase
 	GetArticleUseCase() usecase.GetArticleUseCase
+	DeleteArticleUseCase() usecase.DeleteArticleUseCase
 }
 
 type useCaseManager struct {
@@ -22,6 +23,10 @@ func (u *useCaseManager) GetAllArticlUseCase() usecase.GetAllArticleUseCase {
 }
 func (u *useCaseManager) GetArticleUseCase() usecase.GetArticleUseCase {
 	return usecase.NewGetArticleUseCase(u.repo.ArticleRepo())
+}
+
+func (u *useCaseManager) DeleteArticleUseCase() usecase.DeleteArticleUseCase {
+	return usecase.NewDeleteArticleUseCase(u.repo.ArticleRepo())
 }
 
 func NewUseCaseManager(manager RepoManager) UseCaseManager {

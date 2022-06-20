@@ -12,6 +12,7 @@ type ArticleRepo interface {
 	CreateArticle(title, desc, author, date, article_id string) error
 	GetAllArticle() ([]model.ArticleHead, error)
 	GetArticle(id string) (model.Article, error)
+	DeleteArticle(id string) error
 }
 
 type articleRepoImpl struct {
@@ -61,6 +62,17 @@ func (a *articleRepoImpl) CreateArticle(title, desc, author, date, article_id st
 	}
 	return nil
 
+}
+
+func (a *articleRepoImpl) DeleteArticle(id string) error {
+	coll := a.articleDb.Database("mohamadelabror-blog").Collection("Blog")
+	filter := bson.M{"article_id": id}
+
+	_, err := coll.DeleteOne(context.TODO(), filter)
+	if err != nil {
+		return err
+	}
+	return nil
 }
 
 func NewArticleRepo(articleDb *mongo.Client) ArticleRepo {
